@@ -14,11 +14,11 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 72px; background: rgba(245,240,232,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 72px; background: rgba(245,240,232,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); gap: 16px; }
   .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.1em; color: var(--obsidian); text-decoration: none; }
   .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); transition: color 0.3s; }
+  .nav-links { display: flex; gap: 18px; list-style: none; flex-wrap: nowrap; }
+  .nav-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); transition: color 0.3s; white-space: nowrap; }
   .nav-links a:hover { color: var(--gold); }
   .nav-cta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 28px; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
   .nav-cta:hover { background: var(--gold); color: var(--white); }
@@ -137,7 +137,7 @@
 <div style="padding:72px 60px;background:var(--obsidian);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;">
   <div>
     <div class="eyebrow" style="color:var(--gold)">Не знаете с чего начать?</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--cream);line-height:1.1;">Запишитесь на<br>бесплатную консультацию</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--cream);line-height:1.1;">Запишитесь на<br>приём</div>
   </div>
   <button class="btn-primary" style="background:var(--gold);color:var(--obsidian);" onclick="window.location='kontakty.html'">Записаться</button>
 </div>
