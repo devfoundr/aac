@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Расписание врачей — Академия Авторской Стоматологии</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F5F0E8; --cream-dark: #EAE3D4; --obsidian: #111009; --obsidian-2: #1A1915;
+    --warm-gray: #8A8578; --gold: #C8A96E; --gold-light: #E8D5A8; --white: #FDFAF5;
+    --text-dark: #1E1C18; --text-mid: #5A5650; --border: rgba(140,130,110,0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 72px; background: rgba(245,240,232,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.1em; color: var(--obsidian); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 28px; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
+  .nav-cta:hover { background: var(--gold); color: var(--white); }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
+  .nav-burger span { display: block; width: 24px; height: 1px; background: var(--obsidian); transition: all 0.3s; }
+  .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; z-index: 99; background: rgba(245,240,232,0.98); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); }
+  .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--obsidian); line-height: 1.1; }
+  .btn-primary { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 16px 40px; background: var(--obsidian); color: var(--cream); border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-weight: 400; transition: all 0.35s; }
+  .btn-primary:hover { background: var(--gold); }
+  footer { background: #0B0A08; padding: 48px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 1px solid rgba(200,169,110,0.08); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--cream); letter-spacing: 0.08em; }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.35); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; color: rgba(245,240,232,0.2); }
+  .page-hero { padding: 140px 60px 80px; background: var(--white); }
+  .page-hero .eyebrow { margin-bottom: 16px; }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-burger { display: flex; }
+    .page-hero { padding: 100px 24px 56px; }
+    .section-title { font-size: 36px; }
+    footer { padding: 32px 24px; flex-direction: column; }
+  }
+
+  
+  .sched-hero { padding: 140px 60px 72px; background: var(--white); }
+  .sched-wrap { padding: 0 60px 80px; background: var(--cream); }
+  .sched-meta { margin-top: 48px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+  .sched-meta-item { font-size: 12px; color: var(--text-mid); display: flex; align-items: center; gap: 8px; }
+  .sched-meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+  /* Таблица */
+  .sched-table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--obsidian); color: var(--cream); font-family: 'Jost', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 16px; text-align: center; white-space: nowrap; }
+  thead th:first-child { text-align: left; min-width: 220px; }
+  thead th:nth-child(2) { text-align: left; min-width: 180px; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+  tbody tr:hover { background: rgba(200,169,110,0.05); }
+  tbody tr:last-child { border-bottom: none; }
+  td { padding: 18px 16px; vertical-align: middle; }
+  .doc-name-cell { font-weight: 400; font-size: 14px; color: var(--text-dark); line-height: 1.4; }
+  .doc-name-cell a { text-decoration: none; color: var(--text-dark); transition: color 0.3s; }
+  .doc-name-cell a:hover { color: var(--gold); }
+  .doc-spec-cell { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+  .time-cell { text-align: center; white-space: nowrap; }
+  .time-badge { display: inline-block; padding: 4px 10px; font-size: 12px; background: rgba(200,169,110,0.12); color: var(--gold); border: 1px solid rgba(200,169,110,0.25); }
+  .off-badge { display: inline-block; padding: 4px 10px; font-size: 11px; color: var(--warm-gray); letter-spacing: 0.04em; }
+  .day-header-today { background: var(--gold) !important; color: var(--obsidian) !important; }
+
+  .notice { margin-top: 36px; padding: 20px 28px; background: rgba(200,169,110,0.08); border-left: 3px solid var(--gold); }
+  .notice p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+  .notice strong { color: var(--text-dark); }
+
+  /* Легенда */
+  .legend { display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-mid); }
+  .legend-box { width: 28px; height: 18px; }
+  .legend-box.work { background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); }
+  .legend-box.off { background: transparent; }
+
+  @media(max-width:768px) {
+    .sched-hero { padding: 100px 24px 48px; }
+    .sched-wrap { padding: 0 16px 72px; }
+    thead th { padding: 10px 8px; font-size: 10px; }
+    td { padding: 12px 8px; }
+    .doc-name-cell { font-size: 13px; }
+    .time-badge { font-size: 10px; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">АКАДЕМИЯ <span>АВТОРСКОЙ</span> СТОМАТОЛОГИИ</a>
+  <ul class="nav-links"><li><a href="uslugi.html" style="color:var(--gold)">Услуги</a></li><li><a href="vrachi.html">Врачи</a></li><li><a href="o-klinike.html">О клинике</a></li><li><a href="kontakty.html">Контакты</a></li></ul>
+  <button class="nav-cta" onclick="window.location='kontakty.html'">Записаться</button>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileMenu">
+  <a href="uslugi.html" onclick="closeMenu()">Услуги</a><a href="vrachi.html" onclick="closeMenu()">Врачи</a><a href="o-klinike.html" onclick="closeMenu()">О клинике</a><a href="dokumenty.html" onclick="closeMenu()">Документы</a>
+  <a href="kontakty.html" onclick="closeMenu()">Контакты</a>
+  <button class="nav-cta" onclick="closeMenu();window.location='kontakty.html'">Записаться</button>
+</div>
+
+
+<div class="sched-hero">
+  <div class="eyebrow">Пациентам</div>
+  <h1 class="section-title">Расписание<br>приёма врачей</h1>
+  <p style="margin-top:20px;font-size:15px;line-height:1.8;color:var(--text-mid);max-width:520px;">Прием ведут врачи-специалисты ООО «Академия Авторской Стоматологии».</p>
+</div>
+
+<div class="sched-wrap">
+  <div class="sched-meta">
+    <div class="sched-meta-item"><div class="sched-meta-dot"></div>Утверждено 12.12.2025</div>
+    <div class="sched-meta-item"><div class="sched-meta-dot"></div>Пн–Пт 9:00–18:00 · Сб–Вс 9:00–15:00</div>
+    <div class="sched-meta-item"><div class="sched-meta-dot"></div>+7 (831) 231-00-57</div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-box work"></div>Приём</div>
+    <div class="legend-item"><div class="legend-box off"></div>— Выходной</div>
+  </div>
+
+  <div class="sched-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Врач</th>
+          <th>Специализация</th>
+          <th id="th-0">Пн</th><th id="th-1">Вт</th><th id="th-2">Ср</th><th id="th-3">Чт</th><th id="th-4">Пт</th><th id="th-5">Сб</th><th id="th-6">Вс</th>
+        </tr>
+      </thead>
+      <tbody><tr>
+      <td class="doc-name-cell"><a href="doctor-fedorin.html">Евгений Михайлович Федорин</a></td>
+      <td class="doc-spec-cell">Врач-стоматолог; Врач-стоматолог-ортопед</td>
+      <td class="time-cell"><span class="time-badge">10:00–15:00</span></td><td class="time-cell"><span class="time-badge">10:00–18:00</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">10:00–18:00</span></td><td class="time-cell"><span class="time-badge">10:00–15:00</span></td><td class="time-cell"><span class="time-badge">10:00–15:00</span></td><td class="time-cell"><span class="time-badge">10:00–15:00</span></td>
+    </tr><tr>
+      <td class="doc-name-cell"><a href="doctor-egorova.html">Ольга Александровна Егорова</a></td>
+      <td class="doc-spec-cell">Врач-стоматолог-хирург</td>
+      <td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">14:00–18:00</span></td><td class="time-cell"><span class="time-badge">12:00–16:00</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td>
+    </tr><tr>
+      <td class="doc-name-cell"><a href="doctor-salomatina.html">Елизавета Валентиновна Саломатина</a></td>
+      <td class="doc-spec-cell">Врач-стоматолог-хирург</td>
+      <td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">14:00–16:00</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">14:00–16:00</span></td><td class="time-cell"><span class="off-badge">—</span></td>
+    </tr><tr>
+      <td class="doc-name-cell"><a href="doctor-kuznetsov.html">Даниил Антонович Кузнецов</a></td>
+      <td class="doc-spec-cell">Врач-стоматолог-хирург</td>
+      <td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">10:00–14:00</span></td><td class="time-cell"><span class="off-badge">—</span></td>
+    </tr><tr>
+      <td class="doc-name-cell"><a href="doctor-kapitanova.html">Анастасия Игоревна Капитанова</a></td>
+      <td class="doc-spec-cell">Врач-ортодонт</td>
+      <td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">14:00–16:00</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td>
+    </tr><tr>
+      <td class="doc-name-cell"><a href="doctor-shkileva.html">Полина Игоревна Шкилева</a></td>
+      <td class="doc-spec-cell">Врач-стоматолог</td>
+      <td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">10:00–14:00</span></td><td class="time-cell"><span class="off-badge">—</span></td>
+    </tr><tr>
+      <td class="doc-name-cell"><a href="doctor-budylin.html">Михаил Олегович Будылин</a></td>
+      <td class="doc-spec-cell">Врач-стоматолог-ортопед</td>
+      <td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">16:00–18:00</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="off-badge">—</span></td><td class="time-cell"><span class="time-badge">14:00–16:00</span></td><td class="time-cell"><span class="off-badge">—</span></td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <div class="notice">
+    <p><strong>График работы может меняться!</strong><br>
+    Дополнительную информацию о режиме работы специалистов вы можете уточнить в регистратуре или позвонив по телефону <strong>+7 (831) 231-00-57</strong></p>
+  </div>
+</div>
+
+<div style="padding:72px 60px;background:var(--obsidian);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;">
+  <div>
+    <div class="eyebrow" style="color:var(--gold);">Запись</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--cream);line-height:1.1;">Записаться<br>на приём</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
+    <a href="tel:+78312310057" style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--cream);text-decoration:none;">+7 (831) 231-00-57</a>
+    <button class="btn-primary" onclick="window.location='kontakty.html'">Онлайн-запись</button>
+  </div>
+</div>
+
+<script>
+  // Подсветить сегодняшний день
+  const days = ['th-6','th-0','th-1','th-2','th-3','th-4','th-5'];
+  const today = new Date().getDay();
+  const el = document.getElementById(days[today]);
+  if(el) el.classList.add('day-header-today');
+</script>
+<footer>
+  <div class="footer-logo">АКАДЕМИЯ <span>АВТОРСКОЙ</span> СТОМАТОЛОГИИ</div>
+  <ul class="footer-links">
+    <li><a href="uslugi.html">Услуги</a></li>
+    <li><a href="vrachi.html">Врачи</a></li>
+    <li><a href="o-klinike.html">О клинике</a></li>
+    <li><a href="kontakty.html">Контакты</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 · Лицензия № Л041-01164-52/00655255</div>
+</footer>
+<script>
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  if(burger) burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMenu() {
+    if(burger) burger.classList.remove('open');
+    if(menu) menu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>
