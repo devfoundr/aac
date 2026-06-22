@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты — Академия Авторской Стоматологии</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F5F0E8; --cream-dark: #EAE3D4; --obsidian: #111009; --obsidian-2: #1A1915;
+    --warm-gray: #8A8578; --gold: #C8A96E; --gold-light: #E8D5A8; --white: #FDFAF5;
+    --text-dark: #1E1C18; --text-mid: #5A5650; --border: rgba(140,130,110,0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 72px; background: rgba(245,240,232,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.1em; color: var(--obsidian); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 28px; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
+  .nav-cta:hover { background: var(--gold); color: var(--white); }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
+  .nav-burger span { display: block; width: 24px; height: 1px; background: var(--obsidian); transition: all 0.3s; }
+  .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; z-index: 99; background: rgba(245,240,232,0.98); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); }
+  .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--obsidian); line-height: 1.1; }
+  .btn-primary { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 16px 40px; background: var(--obsidian); color: var(--cream); border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-weight: 400; transition: all 0.35s; }
+  .btn-primary:hover { background: var(--gold); }
+  footer { background: #0B0A08; padding: 48px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 1px solid rgba(200,169,110,0.08); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--cream); letter-spacing: 0.08em; }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.35); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; color: rgba(245,240,232,0.2); }
+  .page-hero { padding: 140px 60px 80px; background: var(--white); }
+  .page-hero .eyebrow { margin-bottom: 16px; }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-burger { display: flex; }
+    .page-hero { padding: 100px 24px 56px; }
+    .section-title { font-size: 36px; }
+    footer { padding: 32px 24px; flex-direction: column; }
+  }
+
+  .contacts-wrap { padding-top: 72px; display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+  .contacts-form-col { padding: 80px 64px; background: var(--cream-dark); }
+  .contacts-info-col { padding: 80px 60px; background: var(--white); }
+  .form-row { margin-bottom: 28px; }
+  .form-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--warm-gray); display: block; margin-bottom: 10px; }
+  .form-input { width: 100%; padding: 14px 0; border: none; border-bottom: 1px solid rgba(140,130,110,0.35); background: transparent; font-family: 'Jost', sans-serif; font-size: 15px; color: var(--text-dark); font-weight: 300; outline: none; transition: border-color 0.3s; }
+  .form-input:focus { border-bottom-color: var(--gold); }
+  .form-input::placeholder { color: rgba(90,86,80,0.35); }
+  .form-select { width: 100%; padding: 14px 0; border: none; border-bottom: 1px solid rgba(140,130,110,0.35); background: transparent; font-family: 'Jost', sans-serif; font-size: 15px; color: var(--text-dark); font-weight: 300; outline: none; appearance: none; cursor: pointer; }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 28px; }
+  .form-submit { margin-top: 40px; padding: 18px 52px; background: var(--obsidian); color: var(--cream); border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400; transition: background 0.3s; }
+  .form-submit:hover { background: var(--gold); }
+  .consent-label { display: flex; align-items: flex-start; gap: 12px; margin-top: 28px; cursor: pointer; }
+  .consent-check { position: absolute; opacity: 0; width: 0; height: 0; }
+  .consent-box { width: 18px; height: 18px; min-width: 18px; border: 1px solid rgba(140,130,110,0.5); display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all 0.25s; }
+  .consent-check:checked + .consent-box { background: var(--obsidian); border-color: var(--obsidian); }
+  .consent-check:checked + .consent-box::after { content: ''; display: block; width: 5px; height: 9px; border: 1.5px solid var(--cream); border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+  .consent-text { font-size: 12px; color: var(--text-mid); line-height: 1.6; }
+  .consent-link { color: var(--gold); text-decoration: underline; }
+  .info-badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; margin-bottom: 48px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.22); }
+  .info-badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.45;transform:scale(1.6)} }
+  .contact-item { margin-bottom: 32px; }
+  .contact-label-text { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--warm-gray); display: block; margin-bottom: 6px; }
+  .contact-val { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--obsidian); font-weight: 300; text-decoration: none; display: block; line-height: 1.4; }
+  .contact-val:hover { color: var(--gold); }
+  .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 36px; }
+  .hours-item { padding: 18px; background: var(--cream); }
+  .hours-day { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 6px; }
+  .hours-time { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--obsidian); }
+  .map-placeholder { margin-top: 36px; background: var(--cream-dark); height: 200px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+  @media(max-width:768px) {
+    .contacts-wrap { grid-template-columns: 1fr; }
+    .contacts-form-col { padding: 100px 24px 56px; }
+    .contacts-info-col { padding: 56px 24px; }
+    .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+    .form-row-2 > div:first-child { margin-bottom: 28px; }
+    .hours-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">АКАДЕМИЯ <span>АВТОРСКОЙ</span> СТОМАТОЛОГИИ</a>
+  <ul class="nav-links"><li><a href="uslugi.html">Услуги</a></li><li><a href="vrachi.html">Врачи</a></li><li><a href="o-klinike.html">О клинике</a></li><li><a href="kontakty.html" style="color:var(--gold)">Контакты</a></li></ul>
+  <button class="nav-cta" onclick="window.location='kontakty.html'">Записаться</button>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileMenu">
+  <a href="uslugi.html" onclick="closeMenu()">Услуги</a><a href="vrachi.html" onclick="closeMenu()">Врачи</a><a href="o-klinike.html" onclick="closeMenu()">О клинике</a><a href="dokumenty.html" onclick="closeMenu()">Документы</a>
+  <a href="raspisanie.html" onclick="closeMenu()">Расписание</a>
+  <a href="kontakty.html" onclick="closeMenu()">Контакты</a>
+  <button class="nav-cta" onclick="closeMenu();window.location='kontakty.html'">Записаться</button>
+</div>
+
+<div class="contacts-wrap">
+  <div class="contacts-form-col">
+    <div class="eyebrow">Запись</div>
+    <h1 class="section-title" style="font-size:44px;margin-bottom:48px;">Запишитесь<br>на консультацию</h1>
+    <div class="form-row">
+      <label class="form-label">Ваше имя</label>
+      <input type="text" class="form-input" placeholder="Иван Иванов">
+    </div>
+    <div class="form-row-2">
+      <div>
+        <label class="form-label">Телефон</label>
+        <input type="tel" class="form-input" placeholder="+7 (___) ___-__-__">
+      </div>
+      <div>
+        <label class="form-label">Услуга</label>
+        <select class="form-select">
+          <option>Консультация</option>
+          <option>Гигиена и профилактика</option>
+          <option>Терапия</option>
+          <option>Ортопедия / Протезирование</option>
+          <option>Ортодонтия</option>
+          <option>Хирургия / Имплантация</option>
+          <option>Диагностика</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Удобный врач (необязательно)</label>
+      <select class="form-select">
+        <option value="">Не важно</option>
+        <option>Федорин Е.М. — Терапия / Ортопедия</option>
+        <option>Саломатина Е.В. — Хирургия / Гигиена</option>
+        <option>Егорова О.А. — Хирургия / Имплантация</option>
+        <option>Кузнецов Д.А. — Хирургия / Имплантация</option>
+        <option>Капитанова А.И. — Ортодонтия</option>
+        <option>Будылин М.О. — Ортопедия</option>
+        <option>Шкилева П.И. — Терапия</option>
+      </select>
+    </div>
+    <label class="consent-label">
+      <input type="checkbox" class="consent-check" id="consent" required>
+      <span class="consent-box"></span>
+      <span class="consent-text">Я согласен(а) на <a href="#" class="consent-link">обработку персональных данных</a> в соответствии с ФЗ № 152</span>
+    </label>
+    <button class="form-submit" onclick="if(!document.getElementById('consent').checked){document.getElementById('ce').style.display='block';return false;}document.getElementById('ce').style.display='none';">Отправить заявку</button>
+    <div id="ce" style="display:none;margin-top:8px;font-size:12px;color:#C0392B;">Пожалуйста, дайте согласие на обработку данных</div>
+    <p style="margin-top:16px;font-size:12px;color:var(--warm-gray);">Мы перезвоним в течение 30 минут.</p>
+  </div>
+
+  <div class="contacts-info-col">
+    <div class="info-badge">
+      <div class="info-badge-dot"></div>
+      <span style="font-size:11px;letter-spacing:0.12em;color:var(--gold);">Принимаем сегодня</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label-text">Телефон</span>
+      <a href="tel:+78312310057" class="contact-val">+7 (831) 231-00-57</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label-text">Email</span>
+      <a href="mailto:akademy.stom@gmail.com" class="contact-val">akademy.stom@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label-text">Адрес</span>
+      <span class="contact-val">Нижний Новгород,<br>ул. Минина, 16а</span>
+    </div>
+    <div class="hours-grid">
+      <div class="hours-item">
+        <div class="hours-day">Пн — Пт</div>
+        <div class="hours-time">9:00 — 18:00</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-day">Сб — Вс</div>
+        <div class="hours-time">9:00 — 15:00</div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <span style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm-gray);">Карта — подключить Яндекс.Карты</span>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">АКАДЕМИЯ <span>АВТОРСКОЙ</span> СТОМАТОЛОГИИ</div>
+  <ul class="footer-links">
+    <li><a href="uslugi.html">Услуги</a></li>
+    <li><a href="stoimost.html">Стоимость</a></li>
+    <li><a href="vrachi.html">Врачи</a></li>
+    <li><a href="o-klinike.html">О клинике</a></li>
+    <li><a href="kontakty.html">Контакты</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 · Лицензия № Л041-01164-52/00655255</div>
+</footer>
+<script>
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  if(burger) burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMenu() {
+    if(burger) burger.classList.remove('open');
+    if(menu) menu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>

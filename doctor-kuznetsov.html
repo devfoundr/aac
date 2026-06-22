@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Даниил Антонович Кузнецов — Академия Авторской Стоматологии</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F5F0E8; --cream-dark: #EAE3D4; --obsidian: #111009; --obsidian-2: #1A1915;
+    --warm-gray: #8A8578; --gold: #C8A96E; --gold-light: #E8D5A8; --white: #FDFAF5;
+    --text-dark: #1E1C18; --text-mid: #5A5650; --border: rgba(140,130,110,0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); font-weight: 300; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 72px; background: rgba(245,240,232,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.1em; color: var(--obsidian); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 28px; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.3s; }
+  .nav-cta:hover { background: var(--gold); color: var(--white); }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; padding: 4px; }
+  .nav-burger span { display: block; width: 24px; height: 1px; background: var(--obsidian); transition: all 0.3s; }
+  .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .nav-mobile { display: none; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; z-index: 99; background: rgba(245,240,232,0.98); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--text-mid); }
+  .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--obsidian); line-height: 1.1; }
+  .btn-primary { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 16px 40px; background: var(--obsidian); color: var(--cream); border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-weight: 400; transition: all 0.35s; }
+  .btn-primary:hover { background: var(--gold); }
+  footer { background: #0B0A08; padding: 48px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 1px solid rgba(200,169,110,0.08); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--cream); letter-spacing: 0.08em; }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+  .footer-links a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.35); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; color: rgba(245,240,232,0.2); }
+  .page-hero { padding: 140px 60px 80px; background: var(--white); }
+  .page-hero .eyebrow { margin-bottom: 16px; }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-burger { display: flex; }
+    .page-hero { padding: 100px 24px 56px; }
+    .section-title { font-size: 36px; }
+    footer { padding: 32px 24px; flex-direction: column; }
+  }
+
+  .doc-hero { padding-top: 72px; display: grid; grid-template-columns: 1fr 1fr; min-height: 85vh; }
+  .doc-photo-col { position: relative; overflow: hidden; min-height: 500px; }
+  .doc-photo-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 45%; background: linear-gradient(to top, rgba(17,16,9,0.75), transparent); z-index: 2; }
+  .doc-photo-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 36px; z-index: 3; }
+  .doc-info-col { padding: 72px 60px; display: flex; flex-direction: column; justify-content: center; background: var(--white); }
+  .doc-full-name { font-family: 'Cormorant Garamond', serif; font-size: 46px; font-weight: 300; line-height: 1.05; color: var(--obsidian); margin-bottom: 8px; }
+  .doc-position-label { font-size: 14px; color: var(--text-mid); margin-bottom: 36px; }
+  .doc-bio { font-size: 14px; line-height: 1.85; color: var(--text-mid); margin-bottom: 28px; }
+  .doc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 36px; }
+  .doc-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--border); color: var(--warm-gray); }
+  .edu-section { padding: 72px 60px; background: var(--cream); }
+  .edu-list { margin-top: 40px; }
+  .edu-item { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--border); }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-year { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--gold); }
+  .edu-text { font-size: 14px; color: var(--text-dark); line-height: 1.6; }
+  .courses-section { padding: 72px 60px; background: var(--white); }
+  .courses-list { margin-top: 36px; display: flex; flex-direction: column; gap: 0; }
+  .course-item { padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-mid); display: flex; gap: 14px; align-items: flex-start; }
+  .course-item::before { content: '·'; color: var(--gold); font-size: 18px; flex-shrink: 0; margin-top: -2px; }
+  .specs-section { padding: 72px 60px; background: var(--obsidian); }
+  .specs-section .section-title { color: var(--cream); }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 40px; }
+  .spec-card { padding: 32px; background: rgba(255,255,255,0.03); border: 1px solid rgba(200,169,110,0.1); }
+  .spec-num { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 12px; }
+  .spec-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--cream); margin-bottom: 8px; }
+  .spec-desc { font-size: 13px; line-height: 1.75; color: rgba(245,240,232,0.5); }
+  .doc-cta { padding: 72px 60px; background: var(--cream-dark); display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .doc-cta-title { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; color: var(--obsidian); }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; margin-bottom: 32px; }
+  .back-link:hover { color: var(--gold); }
+  @media(max-width:768px) {
+    .doc-hero { grid-template-columns: 1fr; }
+    .doc-info-col { padding: 40px 24px; }
+    .doc-full-name { font-size: 34px; }
+    .edu-section, .courses-section, .specs-section, .doc-cta { padding: 56px 24px; }
+    .specs-grid { grid-template-columns: 1fr; }
+    .edu-item { grid-template-columns: 60px 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">АКАДЕМИЯ <span>АВТОРСКОЙ</span> СТОМАТОЛОГИИ</a>
+  <ul class="nav-links"><li><a href="uslugi.html">Услуги</a></li><li><a href="vrachi.html" style="color:var(--gold)">Врачи</a></li><li><a href="o-klinike.html">О клинике</a></li><li><a href="kontakty.html">Контакты</a></li></ul>
+  <button class="nav-cta" onclick="window.location='kontakty.html'">Записаться</button>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileMenu">
+  <a href="uslugi.html" onclick="closeMenu()">Услуги</a><a href="vrachi.html" onclick="closeMenu()">Врачи</a><a href="o-klinike.html" onclick="closeMenu()">О клинике</a><a href="dokumenty.html" onclick="closeMenu()">Документы</a>
+  <a href="raspisanie.html" onclick="closeMenu()">Расписание</a>
+  <a href="kontakty.html" onclick="closeMenu()">Контакты</a>
+  <button class="nav-cta" onclick="closeMenu();window.location='kontakty.html'">Записаться</button>
+</div>
+
+<div class="doc-hero">
+  <div class="doc-photo-col" style="background:var(--obsidian-2);"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:120px;color:rgba(200,169,110,0.08);">ДК</span></div><div class="doc-photo-overlay"></div><div class="doc-photo-label"><div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Хирургия / Имплантация</div></div></div>
+  <div class="doc-info-col">
+    <a class="back-link" href="vrachi.html">
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M15 5H1M6 9.5L1 5 6.5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Все врачи
+    </a>
+    <div class="eyebrow">Хирургия / Имплантация</div>
+    <div class="doc-full-name">Кузнецов<br>Даниил Антонович</div>
+    <div class="doc-position-label">Врач-стоматолог-хирург · Стаж 4+ лет</div>
+    <p class="doc-bio">Специалист в области хирургии и имплантации. Окончил Первый МГМУ им. И.М. Сеченова — один из ведущих медицинских университетов России. Активно развивается в области современных хирургических протоколов.</p>
+    <div class="doc-tags"><span class="doc-tag">Имплантация</span><span class="doc-tag">Хирургия</span><span class="doc-tag">Удаление зубов</span><span class="doc-tag">Синус-лифтинг</span><span class="doc-tag">Плазмалифтинг</span></div>
+    <button class="btn-primary" onclick="window.location='kontakty.html'">Записаться к врачу</button>
+  </div>
+</div>
+
+<div class="edu-section">
+  <div class="eyebrow">Образование</div>
+  <h2 class="section-title" style="font-size:38px;">Учёба и квалификация</h2>
+  <div class="edu-list"><div class="edu-item"><div class="edu-year">2021</div><div class="edu-text">ФГАОУВО Первый МГМУ им. И.М. Сеченова (Сеченовский Университет), 2021 — Стоматология</div></div><div class="edu-item"><div class="edu-year">—</div><div class="edu-text">ФГАОУВО Первый МГМУ им. И.М. Сеченова (Сеченовский Университет) — Стоматология хирургическая</div></div></div>
+</div>
+
+<div class="courses-section">
+  <div class="eyebrow">Повышение квалификации</div>
+  <h2 class="section-title" style="font-size:38px;">Курсы и мастер-классы</h2>
+  <div class="courses-list"><div class="course-item">Данные уточняются</div></div>
+</div>
+
+<div class="specs-section">
+  <div class="eyebrow" style="color:var(--gold)">Направления</div>
+  <h2 class="section-title">Чем занимается<br>специалист</h2>
+  <div class="specs-grid"><div class="spec-card"><div class="spec-num">01</div><div class="spec-title">Имплантация</div><div class="spec-desc">Установка дентальных имплантов по современным протоколам.</div></div><div class="spec-card"><div class="spec-num">02</div><div class="spec-title">Хирургическое лечение</div><div class="spec-desc">Удаление зубов любой сложности, хирургическое лечение заболеваний полости рта.</div></div><div class="spec-card"><div class="spec-num">03</div><div class="spec-title">Синус-лифтинг</div><div class="spec-desc">Операции костной пластики для подготовки к имплантации.</div></div><div class="spec-card"><div class="spec-num">04</div><div class="spec-title">Плазмалифтинг</div><div class="spec-desc">Применение PRF для ускорения регенерации тканей.</div></div></div>
+</div>
+
+<div class="doc-cta">
+  <div class="doc-cta-title">Записаться<br>к Кузнецов Даниил Антонович</div>
+  <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;">
+    <div style="font-size:13px;color:var(--text-mid);">Перезвоним в течение 30 минут.</div>
+    <button class="btn-primary" onclick="window.location='kontakty.html'">Записаться на приём</button>
+    <a href="tel:+78312310057" style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--obsidian);text-decoration:none;">+7 (831) 231-00-57</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">АКАДЕМИЯ <span>АВТОРСКОЙ</span> СТОМАТОЛОГИИ</div>
+  <ul class="footer-links">
+    <li><a href="uslugi.html">Услуги</a></li>
+    <li><a href="stoimost.html">Стоимость</a></li>
+    <li><a href="vrachi.html">Врачи</a></li>
+    <li><a href="o-klinike.html">О клинике</a></li>
+    <li><a href="kontakty.html">Контакты</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 · Лицензия № Л041-01164-52/00655255</div>
+</footer>
+<script>
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  if(burger) burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMenu() {
+    if(burger) burger.classList.remove('open');
+    if(menu) menu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>
